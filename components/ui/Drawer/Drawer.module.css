@@ -18,6 +18,14 @@
   box-shadow: var(--shadow-overlay);
 }
 
+.panel:focus {
+  outline: none;
+}
+
+.handle {
+  display: none;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -34,6 +42,8 @@
 
 .close {
   display: inline-flex;
+  border: 0;
+  background: none;
   align-items: center;
   justify-content: center;
   width: 32px;
@@ -63,7 +73,17 @@
     top: auto;
     left: 0;
     width: 100%;
-    max-height: 90vh;
+    max-height: 90dvh;
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .handle {
+    display: block;
+    flex: none;
+    width: 36px;
+    height: 4px;
+    margin: var(--space-2) auto 0;
+    border-radius: var(--radius-full);
+    background: var(--color-border-strong);
   }
 }
