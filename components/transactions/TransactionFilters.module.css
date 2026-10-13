@@ -1,0 +1,50 @@
+.bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 214px 193px;
+  grid-template-areas: 'search type status';
+  align-items: end;
+  gap: var(--space-4);
+}
+
+.withClear {
+  grid-template-columns: minmax(0, 1fr) 214px 193px auto;
+  grid-template-areas: 'search type status clear';
+}
+
+.search {
+  grid-area: search;
+}
+
+.type {
+  grid-area: type;
+}
+
+.status {
+  grid-area: status;
+}
+
+.clear {
+  grid-area: clear;
+  padding: 0 var(--space-2);
+}
+
+/* The search field's "x" would sit on top of nothing useful; the design has its own clear action. */
+.search input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+@media (max-width: 900px) {
+  .bar,
+  .withClear {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'search search'
+      'type status'
+      'clear clear';
+    gap: var(--space-3);
+  }
+
+  .clear {
+    justify-self: start;
+  }
+}

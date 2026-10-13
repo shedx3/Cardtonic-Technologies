@@ -1,13 +1,11 @@
-import type { ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 import { cx } from '@/lib/cx'
 import styles from './Card.module.css'
 
-export interface CardProps {
+export interface CardProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode
   padding?: 'none' | 'sm' | 'md'
   as?: 'section' | 'div' | 'article'
-  className?: string
-  'aria-labelledby'?: string
 }
 
 export function Card({ children, padding = 'md', as: Tag = 'section', className, ...rest }: CardProps) {

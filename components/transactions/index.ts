@@ -1,2 +1,1 @@
-export { TransactionRow, type TransactionRowProps } from './TransactionRow'
-export { StatusDot } from './StatusDot'
+export { TransactionRow, TransactionIcon, STATUS_TONES, type TransactionRowProps } from './TransactionRow'

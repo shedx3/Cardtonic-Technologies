@@ -1,0 +1,11 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.status {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
