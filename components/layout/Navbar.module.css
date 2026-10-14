@@ -49,11 +49,28 @@
 }
 
 @media (max-width: 640px) {
-  .links {
-    display: none;
+  .inner {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 var(--space-4);
+    height: auto;
+    padding-top: var(--space-3);
   }
 
-  .inner {
-    justify-content: space-between;
+  /* Links drop to a tab row under the logo and user menu. */
+  .links {
+    order: 3;
+    flex: 1 0 100%;
+    gap: var(--space-6);
+    margin-top: var(--space-2);
+  }
+
+  .link {
+    padding: var(--space-2) 0 var(--space-3);
+    border-bottom: 2px solid transparent;
+  }
+
+  .active {
+    border-bottom-color: var(--color-primary);
   }
 }

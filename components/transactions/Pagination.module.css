@@ -1,0 +1,91 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.summary {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.page:hover {
+  background: var(--color-bg-subtle);
+}
+
+.current,
+.current:hover {
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: var(--weight-semibold);
+}
+
+.gap {
+  min-width: 24px;
+  text-align: center;
+  color: var(--color-text-subtle);
+}
+
+.shortLabel,
+.mobileStatus {
+  display: none;
+}
+
+/* Phones: Prev · Page X of Y · Next, with no page numbers or range summary. */
+@media (max-width: 640px) {
+  .wrapper {
+    display: block;
+  }
+
+  .summary,
+  .pages {
+    display: none;
+  }
+
+  .pagination {
+    justify-content: space-between;
+  }
+
+  .longLabel {
+    display: none;
+  }
+
+  .shortLabel {
+    display: inline;
+  }
+
+  .mobileStatus {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+  }
+}

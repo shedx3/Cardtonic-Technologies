@@ -1,0 +1,58 @@
+.bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 214px 193px;
+  grid-template-areas: 'search type status';
+  align-items: end;
+  gap: var(--space-4);
+  /* The design leaves the filters a little short of the table's right edge. */
+  width: 89%;
+  position: relative;
+}
+
+.search {
+  grid-area: search;
+}
+
+.type {
+  grid-area: type;
+}
+
+.status {
+  grid-area: status;
+}
+
+/* Sits in the free space to the right of the bar, so showing it never moves the fields. */
+.clear {
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  height: 40px;
+  margin-left: var(--space-2);
+  padding: 0 var(--space-2);
+  white-space: nowrap;
+}
+
+/* The search field's "x" would sit on top of nothing useful; the design has its own clear action. */
+.search input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+@media (max-width: 900px) {
+  .bar {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'search search'
+      'type status'
+      'clear clear';
+    gap: var(--space-3);
+  }
+
+  .clear {
+    position: static;
+    grid-area: clear;
+    justify-self: start;
+    height: auto;
+    margin-left: 0;
+  }
+}
