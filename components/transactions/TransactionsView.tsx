@@ -2,7 +2,7 @@
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useEffectEvent, useRef, useState } from 'react'
 import type { Transaction } from '@/types/api'
-import { Button, Drawer } from '@/components/ui'
+import { Button, Drawer, StateMessage } from '@/components/ui'
 import { ApiError } from '@/lib/api/client'
 import { getTransaction, getTransactions } from '@/lib/api/endpoints'
 import { useApiQuery } from '@/lib/hooks/useApiQuery'
@@ -14,7 +14,6 @@ import {
   type UrlPatch,
 } from '@/lib/transactions/url'
 import { Pagination } from './Pagination'
-import { StateMessage } from './StateMessage'
 import {
   TransactionDetails,
   TransactionDetailsError,

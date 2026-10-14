@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
-import { Card, Icon, type IconName } from '@/components/ui'
+import { Card } from '../Card'
+import { Icon, type IconName } from '../Icon'
 import { cx } from '@/lib/cx'
 import styles from './StateMessage.module.css'
 

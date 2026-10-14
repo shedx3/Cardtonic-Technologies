@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import type { Transaction } from '@/types/api'
-import { Badge, Button, Icon, Money } from '@/components/ui'
+import { Badge, Button, Icon, Money, Skeleton, StateMessage } from '@/components/ui'
 import {
   formatDateTime,
   formatMoney,
@@ -9,8 +9,6 @@ import {
   TRANSACTION_STATUS_LABELS,
   TRANSACTION_TYPE_LABELS,
 } from '@/lib/format'
-import { Skeleton } from './Skeleton'
-import { StateMessage } from './StateMessage'
 import { STATUS_TONES, TransactionIcon } from './TransactionRow'
 import styles from './TransactionDetails.module.css'
 

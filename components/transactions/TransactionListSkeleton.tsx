@@ -1,5 +1,4 @@
-import { Card } from '@/components/ui'
-import { Skeleton } from './Skeleton'
+import { Card, Skeleton } from '@/components/ui'
 import styles from './TransactionList.module.css'
 
 export function TransactionListSkeleton({ rows = 6 }: { rows?: number }) {
