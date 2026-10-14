@@ -48,17 +48,19 @@ export function TransactionFilters({
         fieldClassName={styles.search}
       />
       <Select
+        menu
         label="Type"
         options={TYPE_OPTIONS}
         value={type}
-        onChange={(e) => onTypeChange(e.target.value as Filters['type'])}
+        onValueChange={(v) => onTypeChange(v as Filters['type'])}
         fieldClassName={styles.type}
       />
       <Select
+        menu
         label="Status"
         options={STATUS_OPTIONS}
         value={status}
-        onChange={(e) => onStatusChange(e.target.value as Filters['status'])}
+        onValueChange={(v) => onStatusChange(v as Filters['status'])}
         fieldClassName={styles.status}
       />
       {showClear && (
