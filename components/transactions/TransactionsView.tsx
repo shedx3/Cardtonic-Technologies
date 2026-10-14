@@ -207,6 +207,8 @@ export function TransactionsView() {
         <Pagination
           page={Math.min(page, meta.totalPages)}
           totalPages={meta.totalPages}
+          total={meta.total}
+          pageSize={PAGE_SIZE}
           onPageChange={goToPage}
         />
       )}
