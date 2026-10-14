@@ -1,7 +1,6 @@
 import { Button, Input, Select, type SelectOption } from '@/components/ui'
 import { TRANSACTION_STATUS_LABELS, TRANSACTION_TYPE_LABELS } from '@/lib/format'
 import type { TransactionFilters as Filters } from '@/lib/transactions/url'
-import { cx } from '@/lib/cx'
 import styles from './TransactionFilters.module.css'
 
 // "Reversed" appears in the design, but the API has no such status, so it isn't offered.
@@ -37,7 +36,7 @@ export function TransactionFilters({
   onClear,
 }: TransactionFiltersProps) {
   return (
-    <div className={cx(styles.bar, showClear && styles.withClear)} role="search">
+    <div className={styles.bar} role="search">
       <Input
         label="Search"
         type="search"

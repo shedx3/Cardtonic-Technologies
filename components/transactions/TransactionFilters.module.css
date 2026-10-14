@@ -4,11 +4,9 @@
   grid-template-areas: 'search type status';
   align-items: end;
   gap: var(--space-4);
-}
-
-.withClear {
-  grid-template-columns: minmax(0, 1fr) 214px 193px auto;
-  grid-template-areas: 'search type status clear';
+  /* The design leaves the filters a little short of the table's right edge. */
+  width: 89%;
+  position: relative;
 }
 
 .search {
@@ -23,9 +21,15 @@
   grid-area: status;
 }
 
+/* Sits in the free space to the right of the bar, so showing it never moves the fields. */
 .clear {
-  grid-area: clear;
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  height: 40px;
+  margin-left: var(--space-2);
   padding: 0 var(--space-2);
+  white-space: nowrap;
 }
 
 /* The search field's "x" would sit on top of nothing useful; the design has its own clear action. */
@@ -34,8 +38,8 @@
 }
 
 @media (max-width: 900px) {
-  .bar,
-  .withClear {
+  .bar {
+    width: 100%;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
       'search search'
@@ -45,6 +49,10 @@
   }
 
   .clear {
+    position: static;
+    grid-area: clear;
     justify-self: start;
+    height: auto;
+    margin-left: 0;
   }
 }
