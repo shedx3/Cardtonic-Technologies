@@ -28,9 +28,9 @@
   color: var(--color-text-subtle);
 }
 
-.input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-soft);
+.input:focus,
+.input:focus-visible {
+  outline: none;
 }
 
 .withIcon {
