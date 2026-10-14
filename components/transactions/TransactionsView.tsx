@@ -1,5 +1,5 @@
 'use client'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useEffectEvent, useRef, useState } from 'react'
 import type { Transaction } from '@/types/api'
 import { Button, Drawer } from '@/components/ui'
@@ -38,7 +38,6 @@ const countLabel = (total: number, filtered: boolean) =>
  * refresh, sharing and Back/Forward restore exactly what the user was looking at.
  */
 export function TransactionsView() {
-  const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -48,7 +47,11 @@ export function TransactionsView() {
 
   const navigate = (patch: UrlPatch, mode: 'push' | 'replace' = 'push') => {
     const qs = patchSearchParams(searchParams, patch)
-    router[mode](qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+    // Native history calls update useSearchParams immediately. router.push would wait for the
+    // server round trip first, so the drawer and loading states would appear late.
+    const url = qs ? `${pathname}?${qs}` : pathname
+    if (mode === 'push') window.history.pushState(null, '', url)
+    else window.history.replaceState(null, '', url)
   }
   // Effects need a stable handle that always sees the latest URL.
   const navigateFromEffect = useEffectEvent(navigate)
@@ -96,12 +99,11 @@ export function TransactionsView() {
   }, [list.isLoading, list.isError, meta, page])
 
   // --- Details ------------------------------------------------------------------------------------
-  // Use the row we already have when there is one; only fetch for links opened cold.
-  const known = selectedId ? rows.find((tx) => tx.id === selectedId) : undefined
-  const detail = useApiQuery<Transaction>(selectedId && !known ? `tx:${selectedId}` : null, (signal) =>
+  // The drawer opens straight away and shows a skeleton while the full transaction loads.
+  const detail = useApiQuery<Transaction>(selectedId ? `tx:${selectedId}` : null, (signal) =>
     getTransaction(selectedId!, { signal })
   )
-  const selected = known ?? (detail.data?.data.id === selectedId ? detail.data.data : undefined)
+  const selected = detail.data?.data.id === selectedId ? detail.data.data : undefined
 
   const openedInApp = useRef(false)
   const select = (tx: Transaction) => {
@@ -112,7 +114,7 @@ export function TransactionsView() {
     // Opened by a click: undo that history entry. Opened from a link: Back would leave the page.
     if (openedInApp.current) {
       openedInApp.current = false
-      router.back()
+      window.history.back()
     } else {
       navigate({ tx: null }, 'replace')
     }
@@ -145,7 +147,7 @@ export function TransactionsView() {
         }
       />
     )
-  } else if (!list.data || (list.isLoading && !hasRows) || (!hasRows && meta && page > meta.totalPages)) {
+  } else if (!list.data || list.isLoading || (!hasRows && meta && page > meta.totalPages)) {
     body = <TransactionListSkeleton />
   } else if (!hasRows) {
     body = filtered ? (
@@ -167,11 +169,12 @@ export function TransactionsView() {
       />
     )
   } else {
-    body = <TransactionList transactions={rows} onSelect={select} isRefreshing={list.isLoading} />
+    body = <TransactionList transactions={rows} onSelect={select} />
   }
 
   let detailBody
-  if (selected) detailBody = <TransactionDetails transaction={selected} />
+  if (detail.isLoading) detailBody = <TransactionDetailsSkeleton />
+  else if (selected) detailBody = <TransactionDetails transaction={selected} />
   else if (detail.isError) {
     detailBody =
       detail.error instanceof ApiError && detail.error.status === 404 ? (
